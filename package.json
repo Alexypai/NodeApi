@@ -1,0 +1,22 @@
+{
+  "name": "node-express-api-sample",
+  "version": "1.0.0",
+  "description": "API app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexypai/NodeApi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alexypai/NodeApi/issues"
+  },
+  "homepage": "https://github.com/Alexypai/NodeApi#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
