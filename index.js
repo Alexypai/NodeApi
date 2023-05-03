@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Configuration de l'API Dialogflow
-const projectId = 'newagent-cmnu'; // Votre identifiant de projet Dialogflow
+const projectId = 'ipiagent1-anpv'; // Votre identifiant de projet Dialogflow
 const sessionId = uuid.v4();
 const sessionClient = new dialogflow.SessionsClient();
 const sessionPath = sessionClient.projectAgentSessionPath(projectId, sessionId);
