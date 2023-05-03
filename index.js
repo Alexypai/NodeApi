@@ -1,5 +1,26 @@
+// Import Express framework.
 const express = require('express');
 const app = express();
+// Import the Storage library.
+const {Storage} = require('@google-cloud/storage');
+// Import the Dialogflow library.
+const dialogflow = require('@google-cloud/dialogflow');
+
+/** Params projet.*/
+const projectId = 'newagent-cmnu';
+
+/** Params requête. */
+const sessionId = '123456';
+const queries = [
+'Reserve a meeting room in Toronto office, there will be 5 of us',
+'Next monday at 3pm for 1 hour, please',
+'B'
+ ]
+const languageCode = 'fr';
+
+
+// Instantiates a session client
+const sessionClient = new dialogflow.SessionsClient();
 
 // Route GET pour la page "contact"
 app.get('/Marine', (req, res) => {
@@ -17,10 +38,6 @@ app.listen(3000, () => {
 
 
 /** Authentification.*/
-
-const projectId = 'newagent-cmnu';
-
-const {Storage} = require('@google-cloud/storage');
 
 async function authenticateImplicitWithAdc() {
   // This snippet demonstrates how to list buckets.
@@ -43,24 +60,9 @@ async function authenticateImplicitWithAdc() {
 authenticateImplicitWithAdc();
 
 
-
-
 /** Query.*/
 
-const sessionId = '123456';
-const queries = [
-'Reserve a meeting room in Toronto office, there will be 5 of us',
-'Next monday at 3pm for 1 hour, please',
-'B'
- ]
-const languageCode = 'fr';
 
-
-// Imports the Dialogflow library
-const dialogflow = require('@google-cloud/dialogflow');
-
-// Instantiates a session client
-const sessionClient = new dialogflow.SessionsClient();
 
 async function detectIntent(
   projectId,
