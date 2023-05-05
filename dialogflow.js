@@ -25,35 +25,41 @@ function handleChatRequest(req, res) {
     sessionClient.detectIntent(request).then((responses) => {
         const result = responses[0].queryResult;
         if (result.action.includes("weather")){
-            const dateDialogFlow = result.parameters.fields.date["stringValue"];
-            const address = result.parameters.fields.address["stringValue"];
-            if(dateDialogFlow ===! ""  && address ===! ""){
+            const dateDialogFlow = result.parameters.fields.date.stringValue;
+            const address = result.parameters.fields.address.stringValue;
+            if(dateDialogFlow.length > 0  && address.length > 0){
+                let weatherTarget = null;
                 const inputFormatedDate = moment(dateDialogFlow).format('YYYY-MM-DD')
                 axios.get('https://api.openweathermap.org/data/2.5/forecast', {
                     params: {
                         appid: '16e409ca55174b0489510aa4f6a9e467',
-                        q: 'paris',
+                        q: address,
                     }
                 })
                     .then(response => {
-                        console.log(response.data);
-                        res.send(response.data);
-
-                        /*while (i <= response.data.list.length) {
-                            response.data.list[i].find(item => {
-                                const itemDate = moment(item.dt_txt);
-                                if (itemDate.format('YYYY-MM-DD') === inputFormatedDate && itemDate.format('HH:mm:ss') === '12:00:00') {
-                                    res.send(item.weather.main);
+                       /* res.send(response.data.list);*/
+                        // Parcourir toutes les listes
+                        response.data.list.forEach(weatherList => {
+                            console.log(inputFormatedDate);
+                                // Vérifier si la variable "dt_txt" contient la date recherchée
+                                const dateWeather = moment(weatherList.dt_txt).format('YYYY-MM-DD');
+                                console.log(dateWeather);
+                                if (dateWeather === inputFormatedDate) {
+                                    weatherTarget = weatherList;
                                 }
-                            });
-                        }*/
-                    })
+                            return weatherTarget;
+                        });
+                        if(weatherTarget){
+                            res.send(weatherTarget);
+                        }else {
+                            res.send("ERREUR DATE NON RETROUVER");
+                        }                    })
                     .catch(error => {
                         console.log(error);
                         res.send(error.data);
                     });
             }else{
-                res.send({ message: date / address });
+                res.send(result);
             }
         }else{
             res.send({ message: "No weather"});
