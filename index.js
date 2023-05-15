@@ -5,6 +5,7 @@ const chatRoutes = require('./src/routes/chat');
 const contactRoutes = require('./src/routes/contact');
 const https = require('https');
 const fs = require('fs');
+const path = require('path');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -15,8 +16,8 @@ app.use('/contact', contactRoutes);
 
 // Configuration HTTPS
 const sslOptions = {
-    key: fs.readFileSync('./certs/key.pem'),
-    cert: fs.readFileSync('./certs/cert.pem')
+    key: fs.readFileSync(path.join(__dirname, 'certs', 'key.pem')),
+    cert: fs.readFileSync(path.join(__dirname, 'certs', 'cert.pem'))
 };
 
 const server = https.createServer(sslOptions, app);

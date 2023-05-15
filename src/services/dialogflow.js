@@ -9,6 +9,7 @@ const projectId = config.projectId;
 const sessionClient = new dialogflow.SessionsClient();
 
 async function handleChatRequest(req, res) {
+
     const sessionId = uuid.v4();
     const sessionPath = sessionClient.projectAgentSessionPath(projectId, sessionId);
     const message = req.body.message;
@@ -25,10 +26,12 @@ async function handleChatRequest(req, res) {
 
     sessionClient.detectIntent(request).then(async (responses) => {
         const result = responses[0].queryResult;
-        console.log(result.parameters);
+        // console.log(result);
 
         const animeList = await getAnimeList();
+        console.log(animeList);
 
+        result.fulfillmentText = `Voici une liste d'animes à regarder : `;
         res.send({message: result.fulfillmentText});
     });
 }
