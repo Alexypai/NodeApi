@@ -1,5 +1,5 @@
 const moment = require("moment");
-const {weatherApi} = require("../api/weatherApi");
+const {weatherApi} = require("../../repositories/weatherRepository");
 require('moment/locale/fr'); // Importer la localisation française
 
 
@@ -8,7 +8,6 @@ async function getWeatherResponse(result) {
     let today = false;
     let closedAsk = null;
     const actualDate = moment(new Date()).format('YYYY-MM-DD')
-    console.log(result.allRequiredParamsPresent)
     if(result.allRequiredParamsPresent === true) {
         const askfield = result.parameters.fields;
         const dateDialogFlow = result.parameters.fields.date.stringValue;
@@ -16,13 +15,11 @@ async function getWeatherResponse(result) {
         if("weather" in askfield){
             closedAsk = askfield.weather.stringValue
         }
-        console.log(aswerUserWeather);
         if (dateDialogFlow.length > 0 && address.length > 0) {
             const inputFormatedDate = moment(dateDialogFlow).format('YYYY-MM-DD')
             if(moment(actualDate).format('YYYY-MM-DD') === inputFormatedDate){
                 today = true
             }
-            console.log(result.parameters.fields)
 
             const weatherTarget = await weatherApi(address, inputFormatedDate, today);
                     if (weatherTarget) {
@@ -71,8 +68,7 @@ async function getWeatherResponse(result) {
                                 }
                                 break;
                         }
-                        console.log(aswerUserWeather)
-                        console.log(aswerUserWeather)
+
 
                         if(today === true){
                             return "Le temps aujourd'hui est " + weatherInfoFr + " avec une température de " + tempCelsius + "°C à " + address;
@@ -81,7 +77,6 @@ async function getWeatherResponse(result) {
                             return "Le " + moment(dateDialogFlow).format('LL') + ", le temps sera " + weatherInfoFr + " avec une température de " + tempCelsius + "°C à " + address;
                         }
                     } else {
-                        console.log("ok5")
                         return "Désolé, nous n'avons pas assez d'argent pour vous fournir la méteo au dela de 5 jours..."
                     }
 
