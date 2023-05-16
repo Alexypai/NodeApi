@@ -1,6 +1,6 @@
 const dialogflow = require('@google-cloud/dialogflow');
 const config = require('../../config/config')
-const {getAnime} = require("./webhook/animeService");
+const {getAnime, getAnimeGenre} = require("./webhook/animeService");
 const {getWeatherResponse} = require("./webhook/weatherService");
 
 const projectId = config.projectId;
@@ -19,8 +19,7 @@ async function handleChatRequest(req, res) {
                 text: message,
                 languageCode: 'fr-FR',
             },
-        },
-        context: null
+        }
     };
 
     sessionClient.detectIntent(request).then(async (responses) => {
@@ -31,15 +30,18 @@ async function handleChatRequest(req, res) {
             case (result.intent.displayName.includes("weather")):
                 chatBotResult = await getWeatherResponse(result);
                 break;
-            case (result.intent.displayName.includes("get-anime-details")):
+            case (result.intent.displayName.includes("get-anime")):
                 chatBotResult = await getAnime(result.queryText, result);
+                break;
+            case (result.intent.displayName.includes("get-anime-details")):
+                chatBotResult = await getAnimeGenre(result.queryText, result);
                 break;
             case (result.intent.displayName === ""):
                 chatBotResult = "Désolé, je n'ai compris ce que vous me demandé.\n Assurez-vous de me demander un contexte de météo ou d'animés"
                 break;
         }
-        console.log(request.session);
-        // console.log(result);
+
+
         res.send(chatBotResult);
     })
 }
