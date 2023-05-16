@@ -3,7 +3,7 @@ const uuid = require('uuid');
 const axios = require('axios');
 const config = require('../../config/config')
 const {query} = require("express");
-const {getAnimeList} = require("./webhook/animeService");
+const {getAnime} = require("./webhook/animeService");
 
 const projectId = config.projectId;
 const sessionClient = new dialogflow.SessionsClient();
@@ -26,13 +26,16 @@ async function handleChatRequest(req, res) {
 
     sessionClient.detectIntent(request).then(async (responses) => {
         const result = responses[0].queryResult;
-        // console.log(result);
 
-        const animeList = await getAnimeList();
-        console.log(animeList);
+        let resultMessage = '';
+        if (result.intent.displayName === 'get-anime-details') {
+            if (result.allRequiredParamsPresent !== false) {
+                resultMessage = await getAnime(result.queryText);
+            }
+        }
 
-        result.fulfillmentText = `Voici une liste d'animes à regarder : `;
-        res.send({message: result.fulfillmentText});
+        // result.fulfillmentText = `Voici une liste d'animes à regarder : `;
+        res.send({message: result.fulfillmentText + resultMessage});
     });
 }
 
