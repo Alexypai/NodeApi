@@ -38,10 +38,10 @@ _ **Endpoints** :
 */chat* -> Prends en entrée un message de l'utilisateur.
 Si l'intent détecté est :
 
- ###### Weather API: 
+ ###### Weather: 
  Fourni la météo pour une date et un lieu
  
- ###### Anime API:
+ ###### Anime:
  Fourni les détails sur un animé
 
 
