@@ -12,5 +12,5 @@ app.use('/chat', chatRoutes);
 app.use('/contact', contactRoutes);
 
 app.listen(3000, () => {
-    console.log('App listening on port 3000');
+    console.log('Serveur HTTP en cours d\'exécution sur le port 3000.');
 });

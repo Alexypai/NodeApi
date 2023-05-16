@@ -1,15 +1,17 @@
 # NodeApi
-Projet étudiant (Chan, Dedola, Paiva)
+**Projet étudiant** (Chan, Dedola, Paiva)
 
-ChatBot Node.js
+###### ChatBot Node.js
 
-_ **Infrastructure d'application web** _ : Framework Node.js -\> Express
+_ **Infrastructure d'application web** : Framework Node.js -\> Express
 
-_ **Librairie intégrée google-cloud** _ : storage, dialogflow
+_ **Librairie intégrée google-cloud** : storage, dialogflow
 
-_ **Lancement de l'application** _ : npm install, node index.js
-
-_ **Générer les certificats** :
-- `openssl genrsa -out key.pem 2048`
-- `openssl req -new -x509 -key key.pem -out cert.pem -days 365`
+_ **Lancement de l'application** : npm install, node index.js
                                      
+_ **Paramètres requête** : 
+
+            **Requête** -> POST
+ 
+            **Body** -> _message_: texte en entrée de l'utilisateur
+                          
