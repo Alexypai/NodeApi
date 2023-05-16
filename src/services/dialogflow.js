@@ -1,20 +1,18 @@
 const dialogflow = require('@google-cloud/dialogflow');
-const uuid = require('uuid');
-const axios = require('axios');
 const config = require('../../config/config')
-const {query} = require("express");
 const {getAnime} = require("./webhook/animeService");
+const {getWeatherResponse} = require("./webhook/weatherService");
 
 const projectId = config.projectId;
 const sessionClient = new dialogflow.SessionsClient();
 
 async function handleChatRequest(req, res) {
 
-    const sessionId = uuid.v4();
+    const sessionId = '227';
     const sessionPath = sessionClient.projectAgentSessionPath(projectId, sessionId);
     const message = req.body.message;
 
-    const request = {
+    let request = {
         session: sessionPath,
         queryInput: {
             text: {
@@ -22,21 +20,28 @@ async function handleChatRequest(req, res) {
                 languageCode: 'fr-FR',
             },
         },
+        context: null
     };
 
     sessionClient.detectIntent(request).then(async (responses) => {
         const result = responses[0].queryResult;
+        let chatBotResult = result.fulfillmentText;
 
-        let resultMessage = '';
-        if (result.intent.displayName === 'get-anime-details') {
-            if (result.allRequiredParamsPresent !== false) {
-                resultMessage = await getAnime(result.queryText);
-            }
+        switch (true) {
+            case (result.intent.displayName.includes("weather")):
+                chatBotResult = await getWeatherResponse(result);
+                break;
+            case (result.intent.displayName.includes("get-anime-details")):
+                chatBotResult = await getAnime(result.queryText, result);
+                break;
+            case (result.intent.displayName === ""):
+                chatBotResult = "Désolé, je n'ai compris ce que vous me demandé.\n Assurez-vous de me demander un contexte de météo ou d'animés"
+                break;
         }
-
-        // result.fulfillmentText = `Voici une liste d'animes à regarder : `;
-        res.send({message: result.fulfillmentText + resultMessage});
-    });
+        console.log(request.session);
+        // console.log(result);
+        res.send(chatBotResult);
+    })
 }
 
 module.exports = { handleChatRequest };
