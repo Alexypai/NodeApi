@@ -21,7 +21,8 @@
 
 ###### DialogFlow
 
-- **Id projet DialogFlow**: ipiagent1-anpv
+- Pour que l'API fonctionne, il faut connecter l'ID projet de Dialogflow. Dans ce repo, nous utilisons notre ID project
+pour que cela fonctionne et connecter nos **Intents** et **Entités**.
 
 ###### Fonctionnement
 
@@ -33,7 +34,7 @@
                         
 - **Appel sur l'endpoint '/chat' au travers de requête HTTP du type:**
 
-        Endpoint -> 'http://localhost:3000/chat/?'
+        Endpoint -> 'http://localhost:3000/chat/'
 
         Requête -> POST
 
@@ -41,17 +42,17 @@
 
         Format -> application/x-www-form-urlencoded
 
-    ![Screenshot](query.png)
+    ![Screenshot](public/img/query.png)
 
 - **Type et format de réponses de l'API:** 
 
   - *En cas d'informations données par l'utilisateur incomplètes:*
   
-  ![Screenshot](reponseInfosManquantes.png)
+  ![Screenshot](public/img/reponseInfosManquantes.png)
   
    - *En cas d'informations données par l'utilisateur complètes:*
    
-  ![Screenshot](reponseInfosCompletes.png)
+  ![Screenshot](public/img/reponseInfosCompletes.png)
 
 
 *Réponse proposée via la détection d'entités et d'intent DialogFlow, et les APis externes.*
@@ -74,7 +75,7 @@
 
 ##### Schéma technique
 
-![Screenshot](schema.PNG)
+![Screenshot](public/img/schema.PNG)
 
 
                                      
