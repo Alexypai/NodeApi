@@ -1,6 +1,6 @@
 # APIs NodeJs: Météo et animé
-####*Projet étudiant (Chan, Dedola, Paiva)*
-#####*Cette application est une API chatbot, permettant de converser sur les sujets suivants:*
+#### *Projet étudiant (Chan, Dedola, Paiva)*
+##### *Cette application est une API chatbot, permettant de converser sur les sujets suivants:*
  *- La météo*
  
  *- Les animés*
@@ -56,7 +56,7 @@
 
 *Réponse proposée via la détection d'entités et d'intent DialogFlow, et les APis externes.*
 
-#####Si l'Intent détecté est :
+##### Si l'Intent détecté est :
 
  ###### Weather: 
  - Si il manque une des entités ('condition météo', 'lieu' ou 'date'):
@@ -72,7 +72,7 @@
  - Quand le chatbot possède l'entité nécessaire:
         le chatbot fourni les informations détaillés pour l'animé détécté.
 
-#####Schéma technique
+##### Schéma technique
 
 ![Screenshot](schema.PNG)
 
