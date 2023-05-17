@@ -13,6 +13,7 @@ async function getAnime(animeName, resultRequest) {
             const synopsis = animeDetails[0].synopsis;
 
             return formatAnimeDetails(title, start_date, num_episodes, mean, synopsis);
+            // return animeDetails;
         }
     }
     else {
