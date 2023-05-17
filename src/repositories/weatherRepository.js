@@ -36,4 +36,4 @@ async function weatherApi(address, inputFormatedDate, today)  {
 
 }
 
-module.exports = { weatherApi } ;
+module.exports = { weatherApi: weatherApi } ;
