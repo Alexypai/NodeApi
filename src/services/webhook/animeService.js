@@ -19,10 +19,10 @@ async function getAnime(animeName, resultRequest) {
         return resultResponse;
     }
 }
-//
-// async function getAnimeGenre(animeName, resultRequest) {
-//     console.log('TEST');
-// }
+
+async function getAnimeGenre(animeName, resultRequest) {
+    console.log('TEST');
+}
 
 function formatAnimeDetails(title, start_date, num_episodes, mean, synopsis) {
     return `
